@@ -1,0 +1,44 @@
+# macOS and editors
+.DS_Store
+._*
+.Spotlight-V100/
+.Trashes/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+.npmrc
+.netrc
+credentials*.json
+*service-account*.json
+secrets.*
+.openai/
+.supabase/
+supabase/.temp/
+
+# Dependencies, caches and temporary files
+node_modules/
+.cache/
+__pycache__/
+*.py[cod]
+*.log
+*.tmp
+*.temp
+coverage/
+
+# Historical deployment archives and local backups
+deployment*.tar.gz
+backups/
+*.zip
+
+# dist/ contains the actual website source and must remain tracked.
