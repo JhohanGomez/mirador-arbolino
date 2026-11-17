@@ -1,5 +1,7 @@
 # Mirador Arbolino
 
+**Live website:** [mirador-arbolino.pages.dev](https://mirador-arbolino.pages.dev/)
+
 A responsive Spanish-language website presenting Mirador Arbolino, a nature accommodation project in Ulloa, Huila, Colombia. It introduces the treehouse and cabin, the surrounding landscape, experiences, and WhatsApp enquiries.
 
 ## Technologies
@@ -62,7 +64,7 @@ Review new files for secrets before staging. Keep passwords, tokens, service cre
 
 ## Hosting and original export
 
-To host this website separately, serve the contents of `dist/` on a static hosting provider. No deployment automation is configured here. Pushing to this repository does not update the existing ChatGPT Sites publication.
+To host this website separately, serve the contents of `dist/` on a static hosting provider. The live website is hosted on Cloudflare Pages, connected to the `main` branch of this repository. Pushing website changes to `main` updates the Cloudflare Pages site. The original ChatGPT Sites publication is independent and is not updated by this repository.
 
 This development copy was prepared from the original downloaded project. Historical `deployment*.tar.gz` archives and the original Sites configuration are backed up separately and excluded from this repository. The original download is preserved. No Supabase database changes are required or performed.
 
