@@ -23,12 +23,17 @@ export async function onRequestGet({ env }) {
       }
     });
 
-    if (!response.ok) {
-      return Response.json(
-        { error: "Error al consultar alojamientos" },
-        { status: 502 }
-      );
-    }
+if (!response.ok) {
+  console.error("Supabase HTTP status:", response.status);
+
+  return Response.json(
+    {
+      error: "Error al consultar alojamientos",
+      supabase_status: response.status
+    },
+    { status: 502 }
+  );
+}
 
     return Response.json(await response.json(), {
       headers: { "Cache-Control": "no-store" }
