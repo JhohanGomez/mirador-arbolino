@@ -2839,6 +2839,23 @@
       function selectCalendarDate(value) {
         arrival.setCustomValidity("");
         departure.setCustomValidity("");
+
+        if (arrival.value && !departure.value && value > arrival.value) {
+          const conflicto = reservasConfirmadas.some(
+            (reserva) =>
+              arrival.value < reserva.fecha_salida &&
+              value > reserva.fecha_entrada,
+          );
+
+          if (conflicto) {
+            departure.setCustomValidity(
+              "El rango seleccionado incluye noches ocupadas. Elige otras fechas.",
+            );
+            departure.reportValidity();
+            return;
+          }
+        }
+
         if (!arrival.value || departure.value || value <= arrival.value) {
           arrival.value = value;
           departure.value = "";
@@ -2846,6 +2863,7 @@
         } else {
           departure.value = value;
         }
+
         updateSummary();
         renderCalendar();
       }
