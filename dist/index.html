@@ -2697,8 +2697,9 @@
         updateSummary();
       });
       accommodation.addEventListener("change", () => {
-        const previous = Number(guestCount.value),
-          max = accommodation.value === "cabin" ? 6 : 2;
+        const previous = Number(guestCount.value);
+        const max =
+          Number(accommodation.selectedOptions[0]?.dataset.capacidad) || 1;
         guestCount.replaceChildren(
           ...Array.from({ length: max }, (_, i) => {
             const o = document.createElement("option");
