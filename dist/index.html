@@ -2710,6 +2710,7 @@
         );
         guestCount.value = Math.min(previous, max);
         updateSummary();
+        cargarDisponibilidad();
       });
       guestCount.addEventListener("change", updateSummary);
       function formatDate(v) {
@@ -2792,6 +2793,49 @@
         1,
       );
       const calendar = document.querySelector("#calendar");
+      let reservasConfirmadas = [];
+      let disponibilidadCargada = false;
+      let solicitudActual = 0;
+
+      async function cargarDisponibilidad() {
+        const solicitud = ++solicitudActual;
+        disponibilidadCargada = false;
+        reservasConfirmadas = [];
+        renderCalendar();
+
+        const ids = {
+          treehouse: 1,
+          cabin: 2,
+        };
+
+        const id = ids[accommodation.value];
+
+        if (!id) return;
+
+        const mes = dateISO(calendarView).slice(0, 7);
+
+        try {
+          const respuesta = await fetch(
+            `/api/disponibilidad?alojamiento_id=${id}&mes=${mes}`,
+          );
+
+          if (!respuesta.ok) {
+            throw new Error("Error consultando disponibilidad");
+          }
+
+          const datos = await respuesta.json();
+
+          if (solicitud !== solicitudActual) return;
+
+          reservasConfirmadas = datos.reservas;
+          disponibilidadCargada = true;
+        } catch (error) {
+          if (solicitud !== solicitudActual) return;
+          console.error(error);
+        }
+
+        renderCalendar();
+      }
       function selectCalendarDate(value) {
         arrival.setCustomValidity("");
         departure.setCustomValidity("");
@@ -2842,8 +2886,22 @@
           button.type = "button";
           button.className = "calendar-day";
           button.textContent = day;
-          button.disabled = value < dateISO(new Date());
-          button.setAttribute("aria-label", formatDate(value));
+          const ocupada = reservasConfirmadas.some(
+            (reserva) =>
+              value >= reserva.fecha_entrada && value < reserva.fecha_salida,
+          );
+
+          button.disabled =
+            value < dateISO(new Date()) || !disponibilidadCargada || ocupada;
+
+          button.setAttribute(
+            "aria-label",
+            formatDate(value) + (ocupada ? " - Ocupada" : ""),
+          );
+
+          if (ocupada) {
+            button.title = "Fecha ocupada";
+          }
           const selected = value === arrival.value || value === departure.value;
           button.setAttribute("aria-pressed", String(selected));
           if (selected) button.classList.add("selected");
@@ -2863,11 +2921,11 @@
       }
       document.querySelector("#calendar-prev").addEventListener("click", () => {
         calendarView.setMonth(calendarView.getMonth() - 1);
-        renderCalendar();
+        cargarDisponibilidad();
       });
       document.querySelector("#calendar-next").addEventListener("click", () => {
         calendarView.setMonth(calendarView.getMonth() + 1);
-        renderCalendar();
+        cargarDisponibilidad();
       });
       document
         .querySelector("#calendar-reset")
