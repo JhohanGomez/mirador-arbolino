@@ -335,13 +335,19 @@
       .features {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px;
-        margin: 18px 0 30px;
+        gap: 12px;
+        margin-top: 24px;
       }
       .features span {
-        border: 1px solid #bdc5b4;
-        padding: 8px 10px;
-        font-size: 10px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        padding: 10px 16px;
+        border: 1px solid #c9cfbf;
+        font-size: 14px;
+        color: var(--green);
+        background: transparent;
       }
       .cabin {
         display: grid;
@@ -1966,7 +1972,7 @@
             </button>
           </div>
           <div class="house-copy">
-            <span class="number">01 / ENTRE LAS RAMAS</span>
+            <span class="eyebrow">01 / ENTRE LAS RAMAS</span>
             <h3>Casa del Árbol</h3>
             <p>
               Una cama doble, un baño y el árbol como protagonista. Un refugio
@@ -1974,22 +1980,13 @@
               romántica bajo las estrellas.
             </p>
             <div class="features">
-              <span>Cama doble</span><span>Baño</span
-              ><span>Terraza romántica</span><span>Mirador hacia Neiva</span>
+              <span>Cama doble</span>
+              <span>Baño</span>
+              <span>Terraza romántica</span>
+              <span>Mirador hacia Neiva</span>
+              <span>2 huéspedes</span>
             </div>
-            <a
-              class="button wa"
-              data-stay="Casa del Árbol"
-              href="https://wa.me/573204988059"
-              >Quiero saber más
-              <svg
-                class="arrow-icon"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <path d="M5 19 19 5M5 5h14v14" /></svg
-            ></a>
+            <a class="button" href="#reservar">Reservar</a>
           </div>
         </article>
         <article class="cabin reveal">
@@ -2005,19 +2002,14 @@
               Tres habitaciones, tres baños y capacidad para seis personas: un
               refugio para compartir tiempo en familia o con amigos.
             </p>
-            <a
-              class="small-link wa"
-              data-stay="La Cabaña para seis personas"
-              href="https://wa.me/573204988059"
-              >Preguntar por la cabaña
-              <svg
-                class="arrow-icon"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <path d="M5 19 19 5M5 5h14v14" /></svg
-            ></a>
+            <div class="features">
+              <span>3 habitaciones</span>
+              <span>3 baños</span>
+              <span>Espacio familiar</span>
+              <span>Vista natural</span>
+              <span>6 huéspedes</span>
+            </div>
+            <a class="button" href="#reservar">Reservar</a>
           </div>
           <div class="cabin-photo">
             <img
