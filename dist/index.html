@@ -774,6 +774,24 @@
         padding-top: 15px;
         margin-top: 20px;
         font-size: 13px;
+
+        .booking-preview {
+          margin: 25px 0 0;
+        }
+
+        .booking-preview img {
+          display: block;
+          width: 100%;
+          aspect-ratio: 4 / 3;
+          object-fit: cover;
+          border-radius: 8px;
+        }
+
+        .booking-preview figcaption {
+          margin-top: 10px;
+          font-size: 12px;
+          color: #647060;
+        }
       }
       .consent {
         display: flex;
@@ -2252,6 +2270,16 @@
             <div class="booking-summary" id="stay-summary" aria-live="polite">
               Casa del Árbol · Cama doble y baño
             </div>
+            <figure class="booking-preview">
+              <img
+                id="booking-accommodation-photo"
+                src="assets/treehouse.png"
+                alt="Visualización conceptual de Casa del Árbol"
+              />
+              <figcaption id="booking-accommodation-caption">
+                Casa del Árbol · Imagen ilustrativa
+              </figcaption>
+            </figure>
           </div>
           <form class="booking-form" id="booking-form">
             <div class="form-grid">
@@ -2709,6 +2737,28 @@
           }),
         );
         guestCount.value = Math.min(previous, max);
+        const fotos = {
+          treehouse: {
+            src: "assets/treehouse.png",
+            nombre: "Casa del Árbol",
+          },
+          cabin: {
+            src: "assets/cabin.webp",
+            nombre: "La Cabaña",
+          },
+        };
+
+        const foto = fotos[accommodation.value];
+
+        if (foto) {
+          document.querySelector("#booking-accommodation-photo").src = foto.src;
+
+          document.querySelector("#booking-accommodation-photo").alt =
+            "Visualización conceptual de " + foto.nombre;
+
+          document.querySelector("#booking-accommodation-caption").textContent =
+            foto.nombre + " · Imagen ilustrativa";
+        }
         updateSummary();
         cargarDisponibilidad();
       });
