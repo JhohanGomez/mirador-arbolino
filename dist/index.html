@@ -335,19 +335,20 @@
       .features {
         display: flex;
         flex-wrap: wrap;
-        gap: 12px;
-        margin-top: 24px;
+        gap: 10px;
+        margin: 18px 0 30px;
       }
+
       .features span {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 44px;
-        padding: 10px 16px;
-        border: 1px solid #c9cfbf;
-        font-size: 14px;
-        color: var(--green);
-        background: transparent;
+        border: 1px solid #bdc5b4;
+        padding: 8px 10px;
+        font-size: 10px;
+      }
+      .house-copy > .button,
+      .cabin-copy > .button {
+        display: flex;
+        width: 100%;
+        box-sizing: border-box;
       }
       .cabin {
         display: grid;
@@ -1986,7 +1987,17 @@
               <span>Mirador hacia Neiva</span>
               <span>2 huéspedes</span>
             </div>
-            <a class="button" href="#reservar">Reservar</a>
+            <a class="button" href="#reservar">
+              Reservar
+              <svg
+                class="arrow-icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d="M5 19 19 5M5 5h14v14" />
+              </svg>
+            </a>
           </div>
         </article>
         <article class="cabin reveal">
@@ -2009,7 +2020,17 @@
               <span>Vista natural</span>
               <span>6 huéspedes</span>
             </div>
-            <a class="button" href="#reservar">Reservar</a>
+            <a class="button" href="#reservar">
+              Reservar
+              <svg
+                class="arrow-icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d="M5 19 19 5M5 5h14v14" />
+              </svg>
+            </a>
           </div>
           <div class="cabin-photo">
             <img
