@@ -770,28 +770,36 @@
         line-height: 1.7;
       }
       .booking-summary {
-        border-top: 1px solid var(--line);
-        padding-top: 15px;
         margin-top: 20px;
-        font-size: 13px;
+        font-family: "Italiana", Georgia, serif;
+        font-size: clamp(28px, 3vw, 40px);
+        color: var(--green);
+      }
 
-        .booking-preview {
-          margin: 25px 0 0;
-        }
+      .booking-preview {
+        margin: 28px 0 0;
+        width: 100%;
+        max-width: 100%;
+      }
 
-        .booking-preview img {
-          display: block;
-          width: 100%;
-          aspect-ratio: 4 / 3;
-          object-fit: cover;
-          border-radius: 8px;
-        }
+      .booking-preview img {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+        object-position: center;
+      }
 
-        .booking-preview figcaption {
-          margin-top: 10px;
-          font-size: 12px;
-          color: #647060;
-        }
+      .booking-preview figcaption {
+        margin-top: 8px;
+        font-size: 11px;
+        color: #647060;
+      }
+
+      .booking-features {
+        margin-top: 18px;
+        margin-bottom: 0;
       }
       .consent {
         display: flex;
@@ -2254,22 +2262,10 @@
 
       <section class="booking" id="reservar">
         <div class="booking-layout">
-          <div>
+          <div class="booking-info">
             <span class="eyebrow">Planea tu escapada</span>
             <h2>Reserva un<br />momento para ti.</h2>
-            <p>
-              Elige el alojamiento y las fechas que tienes en mente. Cuéntanos
-              quién viene y continuamos la conversación por WhatsApp.
-            </p>
-            <p class="form-note">
-              Estamos en construcción. Las fechas seleccionadas son una
-              solicitud: la apertura, disponibilidad y tarifa se confirmarán
-              personalmente. El formulario no confirma una reserva ni realiza
-              cobros.
-            </p>
-            <div class="booking-summary" id="stay-summary" aria-live="polite">
-              Casa del Árbol · Cama doble y baño
-            </div>
+
             <figure class="booking-preview">
               <img
                 id="booking-accommodation-photo"
@@ -2277,9 +2273,24 @@
                 alt="Visualización conceptual de Casa del Árbol"
               />
               <figcaption id="booking-accommodation-caption">
-                Casa del Árbol · Imagen ilustrativa
+                Visualización conceptual · Casa del Árbol
               </figcaption>
             </figure>
+
+            <div class="booking-summary" id="stay-summary" aria-live="polite">
+              Casa del Árbol
+            </div>
+
+            <div
+              class="features booking-features"
+              id="booking-accommodation-features"
+              aria-label="Características del alojamiento"
+            >
+              <span>Cama doble</span>
+              <span>Baño</span>
+              <span>Terraza romántica</span>
+              <span>Mirador hacia Neiva</span>
+            </div>
           </div>
           <form class="booking-form" id="booking-form">
             <div class="form-grid">
@@ -2433,9 +2444,9 @@
               </svg>
             </button>
             <p class="form-note">
-              Se abrirá WhatsApp con tu solicitud lista. Revisa el mensaje y
-              pulsa enviar para compartirlo. No guardamos estos datos en esta
-              página.
+              Proyecto en construcción. Primero verificaremos las fechas; luego
+              podrás continuar a WhatsApp. Las solicitudes están sujetas a
+              confirmación y no se realizan cobros.
             </p>
             <p
               class="form-feedback"
@@ -2740,24 +2751,47 @@
         const fotos = {
           treehouse: {
             src: "assets/treehouse.png",
-            nombre: "Casa del Árbol",
+            descripcion: "Visualización conceptual · Casa del Árbol",
+            caracteristicas: [
+              "Cama doble",
+              "Baño",
+              "Terraza romántica",
+              "Mirador hacia Neiva",
+            ],
           },
+
           cabin: {
             src: "assets/cabin.webp",
-            nombre: "La Cabaña",
+            descripcion: "Imagen de referencia · La Cabaña",
+            caracteristicas: [
+              "3 habitaciones",
+              "3 baños",
+              "Hasta 6 huéspedes",
+              "Escapadas en familia",
+            ],
           },
         };
 
         const foto = fotos[accommodation.value];
 
         if (foto) {
-          document.querySelector("#booking-accommodation-photo").src = foto.src;
+          const imagen = document.querySelector("#booking-accommodation-photo");
 
-          document.querySelector("#booking-accommodation-photo").alt =
-            "Visualización conceptual de " + foto.nombre;
+          imagen.src = foto.src;
+          imagen.alt = foto.descripcion;
 
           document.querySelector("#booking-accommodation-caption").textContent =
-            foto.nombre + " · Imagen ilustrativa";
+            foto.descripcion;
+
+          const etiquetas = foto.caracteristicas.map((texto) => {
+            const etiqueta = document.createElement("span");
+            etiqueta.textContent = texto;
+            return etiqueta;
+          });
+
+          document
+            .querySelector("#booking-accommodation-features")
+            .replaceChildren(...etiquetas);
         }
         updateSummary();
         cargarDisponibilidad();
@@ -2772,9 +2806,7 @@
       }
       function updateSummary() {
         let text =
-          accommodation.value === "cabin"
-            ? "La Cabaña · 3 habitaciones · 3 baños"
-            : "Casa del Árbol · Cama doble y baño";
+          accommodation.value === "cabin" ? "La Cabaña" : "Casa del Árbol";
         if (
           arrival.value &&
           departure.value &&
